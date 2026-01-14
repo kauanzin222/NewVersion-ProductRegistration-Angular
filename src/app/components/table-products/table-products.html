@@ -43,7 +43,7 @@
                                 style="font-size: 1.25rem; color: #1E90FF; cursor: pointer;"
                                 (click)="updateProduct(product)"></i>
                             <i class="bi bi-trash-fill" style="font-size: 1.25rem; color: red; cursor: pointer;"
-                                (click)="deleteProduct(product)"></i>
+                                (click)="deleteProduct(confirmDelete, product)"></i>
                         </td>
                     </tr>
                 </tbody>
@@ -51,3 +51,20 @@
         </div>
     </div>
 </div>
+
+<ng-template #confirmDelete let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-exclamation-octagon-fill me-2"
+                style="font-size: 1.25rem; color: red;"></i>Remover produto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.close()"></button>
+    </div>
+    <div class="modal-body">
+        <p>Tem certeza que deseja excluir o produto #{{productOnDelete.id}}?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+            (click)="modal.close(true)">Confirmar</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close()">Cancelar</button>
+    </div>
+</ng-template>

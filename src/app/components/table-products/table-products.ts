@@ -5,6 +5,7 @@ import { CategoryService } from '../../services/category-service';
 import { ProductService } from '../../services/product-service';
 import { Interface } from 'node:readline';
 import { filter } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-table-products',
@@ -21,8 +22,11 @@ export class TableProducts implements OnInit {
   // Objeto Produto vazio e Array de objetos Produtos
   products: ProductInterface[] = [];
   product: ProductInterface = {} as ProductInterface;
+  productOnDelete: ProductInterface = {} as ProductInterface;
 
-  constructor(private categoryService: CategoryService, private productService: ProductService) { }
+  constructor(private categoryService: CategoryService,
+    private productService: ProductService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     //this.categories = this.categoryService.getCategories();
@@ -50,10 +54,10 @@ export class TableProducts implements OnInit {
         next: data => {
           this.products.push(data);
           this.product = {} as ProductInterface;
-          this.showForm = false;
         }
       });
     }
+    this.showForm = false;
   };
 
   updateProduct(selectedProduct: ProductInterface) {
@@ -66,10 +70,10 @@ export class TableProducts implements OnInit {
     this.productService.update(this.product).subscribe({
       next: () => {
         this.product = {} as ProductInterface;
-        this.isUpdate = false;
-        this.showForm = false;
       }
     });
+    this.isUpdate = false;
+    this.showForm = false;
   }
 
   cancelUpdate() {
@@ -78,12 +82,20 @@ export class TableProducts implements OnInit {
     this.showForm = false;
   }
 
-  deleteProduct(selectedProduct: ProductInterface) {
-    this.productService.delete(selectedProduct).subscribe({
-      next: () => {
-        this.products = this.products.filter(product => product != selectedProduct);
+  deleteProduct(modal: any, selectedProduct: ProductInterface) {
+    this.productOnDelete = selectedProduct;
+
+    this.modalService.open(modal).result.then(
+      (confirm) => {
+        if (confirm) {
+          this.productService.delete(selectedProduct).subscribe({
+            next: () => {
+              this.products = this.products.filter(product => product != selectedProduct);
+            }
+          });
+        }
       }
-    });
+    )
   }
 
   create() {
