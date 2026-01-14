@@ -1,0 +1,28 @@
+<div class="fs-5 fw-bold">Formulário de Cadastro:</div>
+
+<div *ngIf="category" class="row">
+    <div class="col-md-10 offset-md-1">
+
+        <form #formCateegory="ngForm">
+            <div class="row mb-3 mt-3" *ngIf="isUpdate">
+                <label for="idInput" class="col-sm-2 col-form-label">ID:</label>
+                <div class="col-sm-1">
+                    <input name="id" [(ngModel)]="category.id" type="text" class="form-control text-center" id="idInput"
+                        disabled>
+                </div>
+            </div>
+            <div class="row mb-4 mt-3">
+                <label for="nameInput" class="col-sm-2 col-form-label">Nome:</label>
+                <div class="col-sm-10">
+                    <input name="name" [(ngModel)]="category.name" type="text" class="form-control" id="nameInput"
+                        required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="formCateegory.invalid"
+                *ngIf="!isUpdate">Concluir</button>
+            <button type="submit" class="btn btn-primary" (click)="update()" [disabled]="formCateegory.invalid"
+                *ngIf="isUpdate">Salvar</button>
+            <button type="submit" class="ms-2 btn btn-danger" (click)="cancel()">Cancelar</button>
+        </form>
+    </div>
+</div>

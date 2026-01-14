@@ -1,0 +1,53 @@
+<app-register-product *ngIf="showForm" [categories]="categories" [product]="product" [isUpdate]="isUpdate"
+    (saveEmitter)="saveProduct()" (updateEmitter)="confirmUpdate()"
+    (cancelEmitter)="cancelUpdate()"></app-register-product>
+
+
+<div *ngIf="!showForm">
+    <div class="row mb-3">
+        <div class="col">
+            <p class="fs-5 mt-3 fw-bold">Produtos Cadastrados:</p>
+        </div>
+        <div class="col d-flex justify-content-end">
+            <i class="bi bi-plus-circle mt-2" style="font-size: 2rem; color: cornflowerblue; cursor: pointer;"
+                (click)="create()" *ngIf="!showForm"></i>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table" id="productsTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col" class="d-none d-md-table-cell">Descrição</th>
+                        <th scope="col">Preço</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col" class="d-none d-md-table-cell">Opções</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products">
+                        <td>{{product.id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.description}}</td>
+                        <td>{{product.price | currency: 'BRL'}}</td>
+                        <td>{{product.category?.name}}</td>
+                        <td><span *ngIf="product.promotion" class='badge bg-success me-1'>P</span>
+                            <span *ngIf="product.newProduct" class='badge bg-primary me-1'>L</span>
+                        </td>
+                        <td>
+                            <i class="bi bi-pencil p-1 me-2"
+                                style="font-size: 1.25rem; color: #1E90FF; cursor: pointer;"
+                                (click)="updateProduct(product)"></i>
+                            <i class="bi bi-trash-fill" style="font-size: 1.25rem; color: red; cursor: pointer;"
+                                (click)="deleteProduct(product)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

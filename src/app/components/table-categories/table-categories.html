@@ -1,0 +1,50 @@
+<app-register-category *ngIf="showForm" [categories]="categories" [category]="category" [isUpdate]="isUpdate"
+    (cancelEmitter)="cancelUpdate()" (saveEmitter)="saveCategory()" (updateEmitter)="confirmUpdate()">
+</app-register-category>
+
+<div *ngIf="!showForm">
+    <div class="row mb-3">
+        <div class="col">
+            <p class="fs-5 mt-3 fw-bold">Categorias Cadastradas:</p>
+        </div>
+        <div class="col d-flex justify-content-end">
+            <i class="bi bi-plus-circle mt-2" style="font-size: 2rem; color: cornflowerblue; cursor: pointer;"
+                (click)="create()" *ngIf="!showForm"></i>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table" id="productsTable">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col-md-1">#</th>
+                        <th scope="col" class="col-md-9">Nome</th>
+                        <th scope="col" class="col-md-2 text-end pe-3">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categories">
+                        <td>{{category.id}}</td>
+                        <td>{{category.name}}</td>
+                        <td class="text-end pe-3">
+                            <i class="bi bi-pencil p-1 me-2"
+                                style="font-size: 1.25rem; color: #1E90FF; cursor: pointer;"
+                                (click)="updateCategory(category)"></i>
+                            <i class="bi bi-trash-fill" style="font-size: 1.25rem; color: red; cursor: pointer;"
+                                (click)="deleteCategory(category)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="toast-container mt-3 top-0 start-50 translate-middle-x">
+        @if (showError) {
+        <ngb-toast header="ERRO!" [autohide]="false" (hidden)="showError = false"
+            class="bg-danger text-white border-0 fw-bold">
+            Categoria possui produtos relacionados.
+        </ngb-toast>
+        }
+    </div>
+</div>
