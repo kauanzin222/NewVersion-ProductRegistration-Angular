@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CategoryInterface } from '../../interfaces/CategoryInterface';
 import { ProductInterface } from '../../interfaces/ProductInterface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register-product',
@@ -8,14 +9,14 @@ import { ProductInterface } from '../../interfaces/ProductInterface';
   templateUrl: './register-product.html',
   styleUrls: ['./register-product.css'],
 })
-export class RegisterProduct implements OnInit {
+export class RegisterProduct implements OnInit, OnChanges {
   isCanceled: boolean = false;
 
   @Input()
   categories: CategoryInterface[] = {} as CategoryInterface[];
 
   @Input()
-  product?: ProductInterface;
+  product: ProductInterface = {} as ProductInterface;
 
   @Input()
   isUpdate?: boolean;
@@ -23,30 +24,45 @@ export class RegisterProduct implements OnInit {
   @Output()
   saveEmitter = new EventEmitter();
 
-  @Output()
-  updateEmitter = new EventEmitter();
+  formGroupProduct: FormGroup;
 
-  @Output()
-  cancelEmitter = new EventEmitter();
+  constructor(private formBuilder: FormBuilder) {
+    this.formGroupProduct = this.formBuilder.group({
+      id: { value: null, disabled: true },
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(3)]],
+      category: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      newProduct: [''],
+      promotion: ['']
+    });
+  }
+  ngOnChanges(): void {
+    if (this.isUpdate)
+      this.formGroupProduct.setValue(this.product);
+  }
+
+  ngOnInit(): void {
+  }
 
   cancel() {
     this.product = {} as ProductInterface;
-    this.cancelEmitter.emit();
+    this.saveEmitter.emit(false);
   }
 
   save() {
-    this.saveEmitter.emit();
+    if (this.formGroupProduct.valid) {
+      Object.assign(this.product, this.formGroupProduct.value)
+      this.saveEmitter.emit(true);
+    }
   }
 
-  update() {
-    this.updateEmitter.emit();
-  }
-  
   selectedCategory(category1: CategoryInterface, category2: CategoryInterface) {
     return category1 && category2 ? category1.id === category2.id : false;
   }
 
-  constructor() { }
-  ngOnInit(): void {
-  }
+  get pfgName() {return this.formGroupProduct.get("name")};
+  get pfgDescription() {return this.formGroupProduct.get("description")};
+  get pfgPrice() {return this.formGroupProduct.get("price")};
+  get pfgCategory() {return this.formGroupProduct.get("category")};
 }

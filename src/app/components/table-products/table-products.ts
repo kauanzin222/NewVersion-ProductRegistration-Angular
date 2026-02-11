@@ -3,8 +3,6 @@ import { CategoryInterface } from '../../interfaces/CategoryInterface';
 import { ProductInterface } from '../../interfaces/ProductInterface';
 import { CategoryService } from '../../services/category-service';
 import { ProductService } from '../../services/product-service';
-import { Interface } from 'node:readline';
-import { filter } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -48,15 +46,21 @@ export class TableProducts implements OnInit {
     });
   }
 
-  saveProduct() {
-    if (!this.isUpdate) {
-      this.productService.save(this.product).subscribe({
-        next: data => {
-          this.products.push(data);
-          this.product = {} as ProductInterface;
-        }
-      });
-    }
+  saveProduct(save: boolean) {
+    if (save)
+      if (this.isUpdate) {
+        this.productService.update(this.product).subscribe({});
+      }
+      else {
+        this.productService.save(this.product).subscribe({
+          next: data => {
+            this.products.push(data);
+            this.product = {} as ProductInterface;
+          }
+        });
+      }
+
+    this.isUpdate = false;
     this.showForm = false;
   };
 
@@ -64,22 +68,6 @@ export class TableProducts implements OnInit {
     this.isUpdate = true;
     this.showForm = true;
     this.product = selectedProduct;
-  }
-
-  confirmUpdate() {
-    this.productService.update(this.product).subscribe({
-      next: () => {
-        this.product = {} as ProductInterface;
-      }
-    });
-    this.isUpdate = false;
-    this.showForm = false;
-  }
-
-  cancelUpdate() {
-    this.product = {} as ProductInterface;
-    this.isUpdate = false;
-    this.showForm = false;
   }
 
   deleteProduct(modal: any, selectedProduct: ProductInterface) {

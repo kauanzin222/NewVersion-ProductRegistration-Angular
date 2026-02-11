@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'category', component: TableCategories},
   { path: '**', redirectTo: '/home' } //Caso não haja uma rota, joga pra home
 ];
-
+ 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

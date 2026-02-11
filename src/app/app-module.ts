@@ -7,7 +7,7 @@ import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/c
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Header } from './components/header/header';
 import { RegisterProduct } from './components/register-product/register-product';
 import { TableProducts } from './components/table-products/table-products';
@@ -37,6 +37,7 @@ registerLocaleData(localePt, 'pt');
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
