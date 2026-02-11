@@ -11,18 +11,18 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<ProductInterface[]> {
-    return this.http.get<ProductInterface[]>("http://localhost:8080/Products");
+    return this.http.get<ProductInterface[]>("http://localhost:8080/products");
   }
 
   save(product: ProductInterface) {
-    return this.http.post<ProductInterface>("http://localhost:8080/Products", product);
+    return this.http.post<ProductInterface>("http://localhost:8080/products", product);
   }
 
   update(product: ProductInterface) {
-    return this.http.put<ProductInterface>(`http://localhost:8080/Products/${product.id}`, product);
+    return this.http.put<ProductInterface>(`http://localhost:8080/products/${product.id}`, product);
   }
 
   delete(product: ProductInterface) {
-    return this.http.delete<ProductInterface>(`http://localhost:8080/Products/${product.id}`);
+    return this.http.delete<ProductInterface>(`http://localhost:8080/products/${product.id}`);
   }
 }

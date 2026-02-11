@@ -11,19 +11,19 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<CategoryInterface[]> {
-    return this.http.get<CategoryInterface[]>("http://localhost:8080/Categories");
+    return this.http.get<CategoryInterface[]>("http://localhost:8080/categories");
   }
 
   save(category: CategoryInterface) {
-    return this.http.post<CategoryInterface>("http://localhost:8080/Categories", category);
+    return this.http.post<CategoryInterface>("http://localhost:8080/categories", category);
   }
 
   update(category: CategoryInterface) {
-    return this.http.put<CategoryInterface>(`http://localhost:8080/Categories/${category.id}`, category);
+    return this.http.put<CategoryInterface>(`http://localhost:8080/categories/${category.id}`, category);
   }
 
   delete(category: CategoryInterface) {
-    return this.http.delete<CategoryInterface>(`http://localhost:8080/Categories/${category.id}`);
+    return this.http.delete<CategoryInterface>(`http://localhost:8080/c ategories/${category.id}`);
   }
 
 }
