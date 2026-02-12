@@ -3,25 +3,34 @@
 <div *ngIf="category" class="row">
     <div class="col-md-10 offset-md-1">
 
-        <form #formCateegory="ngForm">
+        <form [formGroup]="formGroupCategory" #ngFormCategory="ngForm">
+
+            <!-- ID -->
             <div class="row mb-3 mt-3" *ngIf="isUpdate">
                 <label for="idInput" class="col-sm-2 col-form-label">ID:</label>
                 <div class="col-sm-1">
-                    <input name="id" [(ngModel)]="category.id" type="text" class="form-control text-center" id="idInput"
-                        disabled>
+                    <input name="id" formControlName="id" type="text"
+                        class="form-control text-center border-secondary bg-secondary-subtle" id="idInput">
                 </div>
             </div>
+
+            <!-- NAME -->
             <div class="row mb-4 mt-3">
                 <label for="nameInput" class="col-sm-2 col-form-label">Nome:</label>
                 <div class="col-sm-10">
-                    <input name="name" [(ngModel)]="category.name" type="text" class="form-control" id="nameInput"
-                        required>
+                    <input name="name" formControlName="name" type="text" class="form-control border-secondary"
+                        id="nameInput" required>
+                </div>
+                <div class="" *ngIf="ngFormCategory.submitted">
+                    <small class="form-text text-danger" *ngIf="cfgName?.errors?.['required']">*Nome é
+                        requirido!</small>
+                    <small class="form-text text-danger" *ngIf="cfgName?.errors?.['minlength']">*Tamanho mínimo de 3
+                        caracteres!</small>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="formCateegory.invalid"
-                *ngIf="!isUpdate">Concluir</button>
-            <button type="submit" class="btn btn-primary" (click)="update()" [disabled]="formCateegory.invalid"
-                *ngIf="isUpdate">Salvar</button>
+
+            <!-- BUTTONS -->
+            <button type="submit" class="btn btn-primary" (click)="save()">Salvar</button>
             <button type="submit" class="ms-2 btn btn-danger" (click)="cancel()">Cancelar</button>
         </form>
     </div>

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CategoryInterface } from '../../interfaces/CategoryInterface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register-category',
@@ -9,35 +10,43 @@ import { CategoryInterface } from '../../interfaces/CategoryInterface';
 })
 export class RegisterCategory {
 
+  formGroupCategory: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.formGroupCategory = this.formBuilder.group({
+      id: { value: null, disabled: true },
+      name: ['', [Validators.required, Validators.minLength(3)]]
+    })
+  }
+
   @Input()
   categories: CategoryInterface[] = {} as CategoryInterface[];
 
   @Input()
-  category?: CategoryInterface;
+  category: CategoryInterface = {} as CategoryInterface;
 
   @Input()
   isUpdate?: boolean;
 
   @Output()
   saveEmitter = new EventEmitter();
-  
-  @Output()
-  updateEmitter = new EventEmitter();
-
-  @Output()
-  cancelEmitter = new EventEmitter();
 
   cancel() {
-    this.category = {} as CategoryInterface;
-    this.cancelEmitter.emit();
+    this.saveEmitter.emit(false);
+  }
+
+  ngOnChanges(): void {
+    if (this.isUpdate) {
+      this.formGroupCategory.setValue(this.category);
+    }
   }
 
   save() {
-    this.saveEmitter.emit();
+    if (this.formGroupCategory.valid) {
+      Object.assign(this.category, this.formGroupCategory.value)
+      this.saveEmitter.emit(true);
+    }
   }
 
-  update() {
-    this.updateEmitter.emit();
-  }
-
+  get cfgName() { return this.formGroupCategory.get("name") };
 }

@@ -1,5 +1,5 @@
 <app-register-category *ngIf="showForm" [categories]="categories" [category]="category" [isUpdate]="isUpdate"
-    (cancelEmitter)="cancelUpdate()" (saveEmitter)="saveCategory()" (updateEmitter)="confirmUpdate()">
+    (saveEmitter)="saveCategory($event)">
 </app-register-category>
 
 <div *ngIf="!showForm">
@@ -28,8 +28,7 @@
                         <td>{{category.id}}</td>
                         <td>{{category.name}}</td>
                         <td class="text-end pe-3">
-                            <i class="bi bi-pencil p-1 me-2"
-                                style="font-size: 1.25rem; color: #1E90FF; cursor: pointer;"
+                            <i class="bi bi-pencil p-1 me-2" style="font-size: 1.25rem; cursor: pointer;"
                                 (click)="updateCategory(category)"></i>
                             <i class="bi bi-trash-fill" style="font-size: 1.25rem; color: red; cursor: pointer;"
                                 (click)="deleteCategory(category)"></i>
@@ -38,13 +37,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="toast-container mt-3 top-0 start-50 translate-middle-x">
-        @if (showError) {
-        <ngb-toast header="ERRO!" [autohide]="false" (hidden)="showError = false"
-            class="bg-danger text-white border-0 fw-bold">
-            Categoria possui produtos relacionados.
-        </ngb-toast>
-        }
     </div>
 </div>

@@ -31,15 +31,24 @@ export class TableCategories {
     });
   }
 
-  saveCategory() {
-    if (!this.isUpdate) {
-      this.categoryService.save(this.category).subscribe({
-        next: data => {
-          this.categories.push(data);
-        }
-      })
-    }
-    this.category = {} as CategoryInterface;
+  saveCategory(save: boolean) {
+    if (save)
+      if (this.isUpdate) {
+        this.categoryService.update(this.category).subscribe({
+          next: () => {
+            this.category = {} as CategoryInterface;
+          }
+        });
+      }
+      else {
+        this.categoryService.save(this.category).subscribe({
+          next: data => {
+            this.categories.push(data);
+          }
+        });
+      }
+
+    this.isUpdate = false;
     this.showForm = false;
   }
 
@@ -49,35 +58,12 @@ export class TableCategories {
     this.showForm = true;
   }
 
-  confirmUpdate() {
-    this.categoryService.update(this.category).subscribe({
-      next: () => {
-        this.category = {} as CategoryInterface;
-      }
-    })
-    this.isUpdate = false;
-    this.showForm = false;
-  }
-
   deleteCategory(selectedCategory: CategoryInterface) {
     this.categoryService.delete(selectedCategory).subscribe({
       next: () => {
         this.categories = this.categories.filter(category => category != selectedCategory);
-      },
-      error: () => {
-        this.showError = true;
       }
     })
-  }
-
-  resetError() {
-    this.showError = false;
-  }
-
-  cancelUpdate() {
-    this.category = {} as CategoryInterface;
-    this.isUpdate = false;
-    this.showForm = false;
   }
 
   create() {

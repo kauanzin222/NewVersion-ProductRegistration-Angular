@@ -23,7 +23,7 @@ export class CategoryService {
   }
 
   delete(category: CategoryInterface) {
-    return this.http.delete<CategoryInterface>(`http://localhost:8080/c ategories/${category.id}`);
+    return this.http.delete<CategoryInterface>(`http://localhost:8080/categories/${category.id}`);
   }
 
 }
