@@ -28,7 +28,7 @@ Mantive e refinei a arquitetura do Front-end, focando na separação total de re
 - **Banco de Dados**: H2 Database
 
 ## 🖥️ Repositório do Back-End
-[**Cadastro de Produtos - Java Spring**](https://github.com/kauanzin222/NewVersion-ProductRegistration-JavaSpring)
+👉🏻 [**Cadastro de Produtos - Java Spring**](https://github.com/kauanzin222/NewVersion-ProductRegistration-JavaSpring)
 
 ---
 *Projeto desenvolvido para fins de estudo, refatoração e aperfeiçoamento técnico. 📚*
