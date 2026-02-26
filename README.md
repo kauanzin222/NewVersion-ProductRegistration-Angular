@@ -1,40 +1,34 @@
-# Product Registration - Fullstack Project
+# 📦 Cadastro de Produtos (Evolução & Refatoração) - Projeto Fullstack
 
-This project marks a significant milestone in my journey as a developer, being the **first full-stack application I have built entirely on my own**.
+![Status](https://img.shields.io/badge/Status-Andamento-yellow)
 
-## 🚀 Project Overview
+Este repositório representa um marco importante na minha jornada como desenvolvedor: a evolução e refatoração completa da minha primeira aplicação full-stack construída de forma independente. O objetivo principal desta versão foi aplicar padrões de mercado para transformar um projeto funcional em um sistema robusto, limpo e profissional.
 
-The objective of this project was to create a product registration system, integrating a Java-based backend with an Angular frontend. It served as a practical playground to understand software organization, data flow, and the intricacies of connecting a client application to a server.
+## 🚀 Evolução Técnica e Aprendizados
 
-## 🧠 Key Learnings
+Nesta etapa de refatoramento, adquiri e refinei competências essenciais para um desenvolvedor **Full-Stack**:
 
-Throughout the development process, I acquired and refined several skills:
+- 🏗️ **Arquitetura e DTOs**: Implementei o padrão **DTO (Data Transfer Object)** para desacoplar as entidades do banco de dados da camada de apresentação, garantindo mais segurança e flexibilidade no tráfego de informações.
+- 🛡️ **Tratamento de Exceções**: Desenvolvi uma estrutura personalizada para captura e tratamento de erros, proporcionando feedbacks claros e profissionais para o usuário e facilitando o debug.
+- 🧹 **Refatoramento & Clean Code**: Apliquei princípios de código limpo para reorganizar a lógica de negócio, garantindo que a **Service Layer** e os **Controllers** fossem mais legíveis e fáceis de manter.
+- 🔌 **Integração Refinada**: Melhorei a comunicação entre o front-end em **Angular** e a API em **Java/Spring Boot**, otimizando o fluxo de dados e o tratamento de respostas HTTP.
 
-*   **Software Organization**: Learned how to structure a full-stack project for better maintainability.
-*   **Routing**: Implemented navigation within the application.
-*   **Service & JPA Patterns**: Applied service-oriented architecture and JPA concepts to manage data efficiently.
-*   **Backend-Frontend Integration**: Successfully connected the Angular frontend to the backend API.
-*   **Database Management**: Utilized **H2 Console** for database operations.
-*   **HTTP Methods**: Implemented full CRUD capabilities using `PUT`, `DELETE`, `POST`, and `GET` methods.
+## 🎨 Foco no Front-end: Excelência na Estrutura
 
-## 🎨 Frontend Focus: Repository & Service Structure
+Mantive e refinei a arquitetura do Front-end, focando na separação total de responsabilidades:
 
-I placed a special emphasis on the Frontend architecture to ensure clean code and separation of concerns. I implemented a robust **Repository and Service** structure.
+- **Services**: Serviços dedicados (como `CategoryService` e `ProductService`) cuidam exclusivamente da lógica de comunicação HTTP e manipulação de dados.
+- **Pattern Repository**: A camada de acesso a dados abstrai a fonte de informações, tornando os componentes focados puramente na interface e interação com o usuário.
+- **Validação de Dados**: Implementei validações robustas para garantir que apenas dados íntegros sejam enviados ao servidor.
 
-*   **Services**: I created dedicated services (e.g., `CategoryService`, `ProductService`) to handle business logic and HTTP communication.
-*   **Repository Pattern**: I structured the data access layer to abstract the data source from the components, making the application more modular and easier to test.
+## 🛠️ Tecnologias Utilizadas
 
-This approach allowed me to keep my components, such as the product table, focused purely on presentation and user interaction while the services handled the heavy lifting of data manipulation.
+- **Front-end**: Angular
+- **Back-end**: Java (Spring Boot)
+- **Banco de Dados**: H2 Database
 
-## 🛠️ Technologies Used
-
-*   **Frontend**: Angular
-*   **Backend**: Java (Spring Boot)
-*   **Database**: H2 Database
-
-## 🖥️ Back-End Repository
-https://github.com/kauanzin222/Module10-ProductRegister-SpringBoot.git
+## 🖥️ Repositório do Back-End
+[**Cadastro de Produtos - Java Spring**](https://github.com/kauanzin222/NewVersion-ProductRegistration-JavaSpring)
 
 ---
-
-Project developed for study and improvement purposes. 📚
+*Projeto desenvolvido para fins de estudo, refatoração e aperfeiçoamento técnico. 📚*
